@@ -14,4 +14,8 @@
   text-align: center;
 }
 
-
+.btnColor {
+  background-color: #b5f9ff !important; 
+  border: 1px solid #9ee5eb;
+  color: #000000;
+}

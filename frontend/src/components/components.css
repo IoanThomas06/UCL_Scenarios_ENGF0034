@@ -1,3 +1,18 @@
 .navbarBackground{
     background-color: #b5f9ff;
 }
+
+.btnBackground{
+    background-color: #b5f9ff !important;
+    border: 1px solid #9ee5eb;
+    color: #000000;
+}
+
+.searchBarContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.searchBar{
+    width: 50%;
+}

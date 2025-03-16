@@ -8,7 +8,7 @@ function Borrowing() {
   return (
     <>
         <Layout>
-            <h1> My listings </h1>
+            <h1> Borrowed books </h1>
         </Layout>  
     </>
   )

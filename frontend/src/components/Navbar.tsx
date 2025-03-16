@@ -21,13 +21,10 @@ function Navbar() {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <a className="nav-link" href="/listings">My Listings</a>
+                            <a className="nav-link" href="/search">Search</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/search">Search Listings</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="/borrowing">Borrowed Books</a>
+                            <a className="nav-link" href="/borrowing">Borrowed</a>
                         </li>
                     </ul>
                     <div className="d-flex">

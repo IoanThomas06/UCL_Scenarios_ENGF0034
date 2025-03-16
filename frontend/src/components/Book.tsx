@@ -8,13 +8,14 @@ interface BookProps {
   author: string;
   genre: string;
   coverImage?: string;
-  description?: string;
+  borrowedDate?: string;
+  returnDate?: string;
 }
 
 
 // Individual Book Card Component
 function Book({ 
-    id, title, author, genre, coverImage, description
+    id, title, author, genre, coverImage, borrowedDate, returnDate,
 }: BookProps){
   return (
     <>
@@ -49,16 +50,23 @@ function Book({
                   <strong>Genre:</strong> {genre}
                 </p>
               </div>
-              <div className="col-md-6">
-                {description && (
+
+            </div>
+            <div className="col-md-6">
+                {borrowedDate && (
                   <p className="card-text">
-                    {description.length > 200
-                      ? `${description.substring(0, 200)}...`
-                      : description}
+                    {`Borrowed: ${borrowedDate}`}
                   </p>
                 )}
               </div>
-            </div>
+            <div className="col-md-6">
+                {returnDate && (
+                  <p className="card-text">
+                    {`Return by: ${returnDate}`}
+                  </p>
+                )}
+              </div>
+
           </div>
         </div>
       </div>

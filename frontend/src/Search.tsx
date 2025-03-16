@@ -40,7 +40,6 @@ function Search() {
     <>
         <Layout>
             <h1> Search </h1>
-            <p> UCL Book Exchange is the best way for UCL students to exchange pre-owned boooks</p>
             <br></br>
             <SearchBar onSearch={handleSearch} />
             <br></br>

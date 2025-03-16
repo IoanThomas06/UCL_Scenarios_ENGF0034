@@ -2,9 +2,19 @@ import { useState } from 'react'
 import './App.css'
 import Layout from './Layout'
 import Book from './components/Book'
+import { useAuth } from "./AuthContext";
+import { useNavigate } from "react-router-dom";
 
 
 function Borrowing() {
+
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   const books = {
     "books": [

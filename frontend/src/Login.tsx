@@ -1,13 +1,25 @@
 import { useState } from 'react'
 import './App.css'
 import Layout from './Layout'
+import { useAuth } from './AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [error, setError] = useState<string | null>(null);
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      await login(username, password);
+      navigate("/");
+    } catch (err) {
+      setError("Invalid credentials");
+    }
   };
 
   return (

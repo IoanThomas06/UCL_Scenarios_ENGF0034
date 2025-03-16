@@ -6,6 +6,9 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import Search from "./Search";
 import Login from "./Login";
 import Borrowing from "./Borrowing";
+import React, { useState } from 'react';
+import { AuthProvider } from "./AuthContext";
+import ProtectedRoute from "./ProtectedRoute";
 
 
 const router = createBrowserRouter(
@@ -20,7 +23,11 @@ const router = createBrowserRouter(
     },
     {
       path: "/borrowing",
-      element: <Borrowing />,
+      element: (
+        <ProtectedRoute>
+          <Borrowing />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/login",
@@ -33,5 +40,7 @@ const router = createBrowserRouter(
 );
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <RouterProvider router={router} />,
+  <AuthProvider>
+    <RouterProvider router={router} />
+  </AuthProvider>
 );

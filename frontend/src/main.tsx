@@ -6,6 +6,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import Listings from "./Listings";
 import Search from "./Search";
 import Login from "./Login";
+import Borrowing from "./Borrowing";
 
 
 const router = createBrowserRouter(
@@ -23,9 +24,14 @@ const router = createBrowserRouter(
       element: <Search />,
     },
     {
+      path: "/borrowing",
+      element: <Borrowing />,
+    },
+    {
       path: "/login",
       element: <Login />,
     },
+    
 
   ],
   { basename: import.meta.env.BASE_URL }

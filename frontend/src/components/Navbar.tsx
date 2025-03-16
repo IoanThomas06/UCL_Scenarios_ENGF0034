@@ -26,6 +26,9 @@ function Navbar() {
                         <li className="nav-item">
                             <a className="nav-link" href="/search">Search Listings</a>
                         </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/borrowing">Borrowed Books</a>
+                        </li>
                     </ul>
                     <div className="d-flex">
                         <button className="btn btn-outline-dark"> 

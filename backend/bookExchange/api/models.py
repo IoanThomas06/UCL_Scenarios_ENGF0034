@@ -20,7 +20,6 @@ class BookInfo(models.Model):
     
 
 class BookItem(models.Model):
-    book_id = models.field
     isbn = models.ForeignKey(BookInfo, on_delete=models.CASCADE)
     condition = models.CharField(max_length=20) 
 
@@ -37,3 +36,4 @@ class Borrows(models.Model):
 
     def __str__(self):
         return self.person + "," + self.book_item + "," + self.start_date
+    

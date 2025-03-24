@@ -1,0 +1,7 @@
+<h2>Update Return Date for Borrowing #{{ borrow.id }}</h2>
+<form method="POST">
+    {% csrf_token %}
+    <label for="returned_date">Return Date:</label>
+    <input type="date" id="returned_date" name="returned_date">
+    <button type="submit">Update Return Date</button>
+</form>

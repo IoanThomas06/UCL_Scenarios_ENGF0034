@@ -3,10 +3,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Define the Book interface
 interface BookProps {
-  id: string;
+  id: number;
+  isbn: string;
   title: string;
   author: string;
-  genre: string;
+  condition: string;
   coverImage?: string;
   borrowedDate?: string;
   returnDate?: string;
@@ -15,7 +16,7 @@ interface BookProps {
 
 // Individual Book Card Component
 function Book({ 
-    id, title, author, genre, coverImage, borrowedDate, returnDate,
+    id, isbn, title, author, condition, coverImage, borrowedDate, returnDate,
 }: BookProps){
   return (
     <>
@@ -44,10 +45,13 @@ function Book({
             <div className="row">
               <div className="col-md-6">
                 <p className="card-text mb-1">
+                  <strong>ISBN:</strong> {isbn}
+                </p>
+                <p className="card-text mb-1">
                   <strong>Author:</strong> {author}
                 </p>
                 <p className="card-text mb-1">
-                  <strong>Genre:</strong> {genre}
+                  <strong>Condition:</strong> {condition}
                 </p>
               </div>
 

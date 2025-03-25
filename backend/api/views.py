@@ -2,6 +2,30 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PersonForm, BorrowBookForm, BookInfoForm, BookItemForm, BookItemConditionForm
 from .models import Person, Borrows, BookItem, BookInfo
 import datetime
+from django.http import JsonResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializers import BookItemSerializer
+from django.db.models import Q
+
+
+@api_view(['GET'])
+def get_books(request):
+    search_query = request.query_params.get('search', '')
+    if search_query:
+        # Filter books if search query is not empty
+        books = BookItem.objects.filter(
+            Q(isbn__title__icontains=search_query) |
+            Q(isbn__author__icontains=search_query) |
+            Q(isbn__isbn__icontains=search_query)
+        )
+    else:
+        # Return all books if search query is empty
+        books = BookItem.objects.all()
+    
+    serializer = BookItemSerializer(books, many=True, context={'request': request})
+    return Response(serializer.data)
+
 
 
 # View for creating a new Person

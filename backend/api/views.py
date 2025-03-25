@@ -136,3 +136,25 @@ def update_bookitem_condition(request, bookitem_id):
         form = BookItemConditionForm(instance=bookitem)
 
     return render(request, 'update_bookitem_condition.html', {'form': form, 'bookitem': bookitem})
+
+# Function to query BookItem entries by ISBN
+@api_view(['GET'])
+def get_book_items_by_isbn(request, isbn):
+    book_items = BookItem.objects.filter(isbn__isbn=isbn)
+    serializer = BookItemSerializer(book_items, many=True, context={'request': request})
+    return Response(serializer.data)
+
+# Function to query Borrows entries by UCL email
+@api_view(['GET'])
+def get_borrows_by_ucl_email(request, ucl_email):
+    person = get_object_or_404(Person, ucl_email=ucl_email)
+    borrows = Borrows.objects.filter(person=person)
+    borrows_data = [
+        {
+            'book_item_id': borrow.book_item.id,
+            'start_date': borrow.start_date,
+            'end_date': borrow.end_date,
+            'returned_date': borrow.returned_date
+        }
+    for borrow in borrows]
+    return JsonResponse(borrows_data, safe=False)

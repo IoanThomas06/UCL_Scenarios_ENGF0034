@@ -11,5 +11,6 @@ urlpatterns = [
     path('update-bookitem-condition/<int:bookitem_id>/', views.update_bookitem_condition, name='update_bookitem_condition'),
 
     path('get_books/', views.get_books, name='get_books'),
-
+    path('get-book-items-by-isbn/<str:isbn>/', views.get_book_items_by_isbn, name='get_book_items_by_isbn'),
+    path('get-borrows-by-ucl-email/<str:ucl_email>/', views.get_borrows_by_ucl_email, name='get_borrows_by_ucl_email'),
 ]

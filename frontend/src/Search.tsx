@@ -48,8 +48,6 @@ function Search() {
     fetchBooks();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
 
   return (
     <>
@@ -57,6 +55,8 @@ function Search() {
             <h1> Search </h1>
             <br></br>
             <SearchBar onSearch={handleSearch} />
+            {loading && <div>Loading...</div>}
+            {error && <div>{error}</div>}
             <br></br>
             <br></br>
             <div className = "bookDisplay">

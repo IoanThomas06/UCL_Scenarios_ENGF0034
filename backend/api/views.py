@@ -26,6 +26,9 @@ def get_books(request):
     serializer = BookItemSerializer(books, many=True, context={'request': request})
     return Response(serializer.data)
 
+def login(request):
+    pass
+
 
 
 # View for creating a new Person

@@ -13,5 +13,7 @@ urlpatterns = [
     path('update-bookitem-condition/<int:bookitem_id>/', views.update_bookitem_condition, name='update_bookitem_condition'),
 
     path('get_books/', views.get_books, name='get_books'),
+    path('login/', views.login, name='login'),
+    path('logout/', views.logout, name='logout'),
 
 ]

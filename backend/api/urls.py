@@ -6,8 +6,6 @@ urlpatterns = [
     path('update-credit/<str:email>/', views.update_credit, name='update_credit'),
     path('borrow-book/', views.borrow_book, name='borrow_book'),
     path('update-return-date/<int:borrow_id>/', views.update_return_date, name='update_return_date'),
-    
-    # New URLs for books and items
     path('create-bookinfo/', views.create_bookinfo, name='create_bookinfo'),
     path('create-bookitem/', views.create_bookitem, name='create_bookitem'),
     path('update-bookitem-condition/<int:bookitem_id>/', views.update_bookitem_condition, name='update_bookitem_condition'),

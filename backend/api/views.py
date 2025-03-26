@@ -7,7 +7,14 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import BookItemSerializer
 from django.db.models import Q
+import random
+from urllib.parse import urlencode
+from django.shortcuts import redirect
+import requests
 
+
+UCL_CLIENT_ID = '0736577201550487.7239394091035845'
+UCL_CLIENT_SECRET = 'e02ff5cb24f7e9b4930d94c31d068ea3d6173c488161f6120c2b0587607551ad'
 
 @api_view(['GET'])
 def get_books(request):
@@ -22,13 +29,42 @@ def get_books(request):
     else:
         # Return all books if search query is empty
         books = BookItem.objects.all()
-    
     serializer = BookItemSerializer(books, many=True, context={'request': request})
     return Response(serializer.data)
 
 def login(request):
-    pass
+    oauth_base_url = "https://uclapi.com/oauth/authorise"
+    params = {
+        'client_id': UCL_CLIENT_ID, 
+        'state': str(random.randint(0, 1000000)),
+    }
+    auth_url = f"{oauth_base_url}?{urlencode(params)}"
+    return redirect(auth_url)
 
+def oauth_callback(request):
+    code = request.GET.get('code')
+    result = request.GET.get('result')
+    state = request.GET.get('state')
+    if code:
+        response = requests.get('https://uclapi.com/oauth/token', params={
+            'client_id': UCL_CLIENT_ID,
+            'client_secret': UCL_CLIENT_SECRET,
+            'code': code
+        })
+        if response.ok:
+            token = response.json()['token']
+            data = requests.get("https://uclapi.com/oauth/user/data", params={
+                'client_secret': UCL_CLIENT_SECRET,
+                'token': token,
+            })
+            if data.ok:
+                email = data.json()['email']
+                params = {
+                    'email': email,
+                }
+                callback_frontend = f"http://localhost:5173/callback?{urlencode(params)}"
+                return redirect(callback_frontend)  # Frontend URL
+    return redirect('http://localhost:5173/login?error=auth_failed')
 
 
 # View for creating a new Person

@@ -1,7 +1,8 @@
 import "./components.css"
-
+import { useAuth } from "../AuthContext";
 
 function Navbar() {
+    const { user } = useAuth();
 
     return (
         <nav className="navbar  sticky-top navbar-expand-lg navbar navbarBackground">
@@ -27,14 +28,20 @@ function Navbar() {
                             <a className="nav-link" href="/borrowing">Borrowed</a>
                         </li>
                     </ul>
+                    {!user && 
                     <div className="d-flex">
-                        <button className="btn btn-outline-dark"> 
-                            <a className="nav-link" href="/login">
-                                <i className="bi bi-person-circle me-2"></i>
-                            Log in
-                            </a>
-                        </button>
-                    </div>
+                        <a href="http://127.0.0.1:8000/api/login" >
+                            <img src="https://s3.eu-west-2.amazonaws.com/uclapi-static/SignInWithUCLSmall.png"  className = "ucl_signin"/>
+                        </a>
+                    </div>}
+                    {user &&
+                    <div className="d-flex">
+                        <span className="navbar-text me-3">
+                            {user}
+                        </span>
+                        <a href="/logout" className="btn btn-outline-dark">Logout</a>
+                    </div>}
+                    
                 </div>
             </div>
         </nav>

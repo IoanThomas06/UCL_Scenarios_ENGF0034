@@ -4,10 +4,12 @@ import Home from "./Home"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import Search from "./Search";
-import Login from "./Login";
 import Borrowing from "./Borrowing";
 import { AuthProvider } from "./AuthContext";
 import ProtectedRoute from "./ProtectedRoute";
+import LoginRedirect from "./LoginRedirect.tsx";
+import Callback from "./Callback.tsx";
+import Logout from "./Logout.tsx";
 
 
 const router = createBrowserRouter(
@@ -30,7 +32,15 @@ const router = createBrowserRouter(
     },
     {
       path: "/login",
-      element: <Login />,
+      element: <LoginRedirect />,
+    },
+    {
+      path: "/callback",
+      element: <Callback />,
+    },
+    {
+      path: "/logout",
+      element: <Logout />,
     },
     
 

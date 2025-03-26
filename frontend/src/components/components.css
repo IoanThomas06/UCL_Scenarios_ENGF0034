@@ -16,3 +16,9 @@
 .searchBar{
     width: 50%;
 }
+
+.ucl_signin{
+    height: 3rem;
+    width: auto;
+    display: block;
+}

@@ -3,7 +3,7 @@ import { createContext, useState, useContext, ReactNode } from "react";
 // Define the shape of authentication context
 interface AuthContextType {
   user: string | null;
-  login: (username: string, password: string) => Promise<void>;
+  login: (email:string) => void;
   logout: () => void;
 }
 
@@ -12,14 +12,10 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<string | null>(localStorage.getItem("user"));
 
-  const login = async (username: string, password: string) => {
+  const login = async (email: string) => {
     // Simulate API request (Replace with actual API call)
-    if (username === "admin" && password === "password") {
-      setUser(username);
-      localStorage.setItem("user", username);
-    } else {
-      throw new Error("Invalid credentials");
-    }
+    setUser(email);
+    localStorage.setItem("user", email);
   };
 
   const logout = () => {

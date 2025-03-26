@@ -13,7 +13,8 @@ urlpatterns = [
     path('get_books/', views.get_books, name='get_books'),
     path('login/', views.login, name='login'),
     path('callback/', views.oauth_callback, name='oauth_callback'),
-    
+    path('get_books_borrowed/', views.get_books_borrowed, name='books_borrowed'),
+
 
     path('get-book-items-by-isbn/<str:isbn>/', views.get_book_items_by_isbn, name='get_book_items_by_isbn'),
     path('get-borrows-by-ucl-email/<str:ucl_email>/', views.get_borrows_by_ucl_email, name='get_borrows_by_ucl_email'),

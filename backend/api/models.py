@@ -33,8 +33,8 @@ class Borrows(models.Model):
     book_item = models.ForeignKey(BookItem, on_delete=models.CASCADE)
     start_date = models.DateField(auto_now_add=True)
     end_date = models.DateField()
-    returned_date = models.DateField(null=True)
+    returned_date = models.DateField(null=True, blank = True)
 
     def __str__(self):
-        return self.person + "," + self.book_item + "," + self.start_date
+         return f"{self.person.ucl_email}, {str(self.book_item)}, {self.start_date}"
     

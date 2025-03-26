@@ -5,7 +5,7 @@ import datetime
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import BookItemSerializer
+from .serializers import BookItemSerializer, BorrowItemSerializer
 from django.db.models import Q
 import random
 from urllib.parse import urlencode
@@ -15,6 +15,9 @@ import requests
 
 UCL_CLIENT_ID = '0736577201550487.7239394091035845'
 UCL_CLIENT_SECRET = 'e02ff5cb24f7e9b4930d94c31d068ea3d6173c488161f6120c2b0587607551ad'
+
+
+
 
 @api_view(['GET'])
 def get_books(request):
@@ -30,6 +33,13 @@ def get_books(request):
         # Return all books if search query is empty
         books = BookItem.objects.all()
     serializer = BookItemSerializer(books, many=True, context={'request': request})
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def get_books_borrowed(request):
+    email = request.query_params.get('email', '')
+    books = Borrows.objects.filter(person__ucl_email=email)
+    serializer = BorrowItemSerializer(books, many=True, context={'request': request})
     return Response(serializer.data)
 
 def login(request):
@@ -62,22 +72,28 @@ def oauth_callback(request):
                 params = {
                     'email': email,
                 }
+                create_person(email)
                 callback_frontend = f"http://localhost:5173/callback?{urlencode(params)}"
                 return redirect(callback_frontend)  # Frontend URL
     return redirect('http://localhost:5173/login?error=auth_failed')
 
+def create_person(email):
+    try:
+        person, created = Person.objects.get_or_create(
+            ucl_email=email,
+            defaults={
+                'credit': 200  # Default credit for new users
+            }
+        )
+        if created:
+            print(f"Created new person with email: {email}")
+        else:
+            print(f"Person with email {email} already exists")
+        return
+    except Exception as e:
+        print(f"Error creating person: {str(e)}")
+        return None
 
-# View for creating a new Person
-def create_person(request):
-    if request.method == 'POST':
-        form = PersonForm(request.POST)
-        if form.is_valid():
-            form.save()  # Save the new person to the database
-            return redirect('person_list')  # Redirect to a person list page
-    else:
-        form = PersonForm()
-
-    return render(request, 'create_person.html', {'form': form})
 
 
 # View for updating Person's credit

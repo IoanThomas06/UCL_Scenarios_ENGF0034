@@ -22,3 +22,9 @@
     width: auto;
     display: block;
 }
+
+.widthControl{
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+}

@@ -20,7 +20,7 @@ function Book({
 }: BookProps){
   return (
     <>
-    <div className="card mb-3">
+    <div className="card mb-3 widthControl">
       <div className="row g-0">
         <div className="col-md-3">
           <div className="h-100 bg-light d-flex align-items-center justify-content-center">

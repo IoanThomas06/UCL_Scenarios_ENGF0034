@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import BookItem, BookInfo
+from .models import BookItem, BookInfo, Borrows
 
 class BookInfoSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
@@ -20,3 +20,9 @@ class BookItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookItem
         fields = ['id', 'book_info', 'condition']
+
+class BorrowItemSerializer(serializers.ModelSerializer):
+    book_item = BookItemSerializer( read_only=True)
+    class Meta:
+        model = Borrows
+        fields = ['person', 'book_item', 'start_date', 'end_date', 'returned_date']
